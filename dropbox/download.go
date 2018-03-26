@@ -1,19 +1,19 @@
 package dropbox
 
 import (
-	"fmt"
-	"io"
-	"os"
-	"net/http"
 	"bufio"
 	"bytes"
+	"fmt"
+	"io"
+	"net/http"
+	"os"
 	"strings"
 )
 
-const	PREFIX = "https://www.dropbox.com/s/"
-const 	POSTFIX = "?dl=1"
+const PREFIX = "https://www.dropbox.com/s/"
+const POSTFIX = "?dl=1"
 
-func Download(login string, password string, url string) (err error){
+func Download(login string, password string, url string) (err error) {
 	fmt.Print("This Dropbox download utility\n")
 	//fmt.Printf("login: %s, password: %s, url: %s\n", login, password, url)
 	reader := bufio.NewReader(os.Stdin)
@@ -22,18 +22,18 @@ func Download(login string, password string, url string) (err error){
 	fmt.Print("Enter file name: ")
 	fileName, _ := reader.ReadString('\n')
 
-	s := []string{	"https://www.dropbox.com/s/",
-					strings.TrimSuffix(fileID, "\n"),
-					"/",
-					strings.TrimSuffix(fileName, "\n"),
-					"?dl=1"}
+	s := []string{PREFIX,
+		strings.TrimSuffix(fileID, "\n"),
+		"/",
+		strings.TrimSuffix(fileName, "\n"),
+		POSTFIX}
 
 	URI := strings.Join(s, "")
 
 	return Run(URI, strings.TrimSuffix(fileName, "\n"))
 }
 
-func Run(url string, fileName string) (err error){
+func Run(url string, fileName string) (err error) {
 	fmt.Printf("RUN got a new URL request: %s\n", url)
 	// check path downloads exists
 	if _, err := os.Stat("downloads"); os.IsNotExist(err) {
@@ -45,7 +45,7 @@ func Run(url string, fileName string) (err error){
 	buffer.WriteString(fileName)
 
 	out, err := os.Create(buffer.String())
-	if err != nil  {
+	if err != nil {
 		return err
 	}
 	defer out.Close()
@@ -65,7 +65,7 @@ func Run(url string, fileName string) (err error){
 
 	// Writer the body to file
 	_, err = io.Copy(out, resp.Body)
-	if err != nil  {
+	if err != nil {
 		return err
 	}
 	println("Success: file saved on disk!")
