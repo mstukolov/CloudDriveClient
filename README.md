@@ -5,7 +5,7 @@ git clone https://github.com/mstukolov/CloudDriveClient.git
 Build Utility:
 1. go build cli-tools.go
 RUN Utility:
-cli-tools -service=cloud provider(Example, dropbox, google, yandex)
+- cli-tools -service=cloud provider(Example, dropbox, google, yandex)
   
 DROPBOX API:
 1. get file shared link:
