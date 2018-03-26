@@ -2,17 +2,26 @@ package main
 
 import (
 	"flag"
-	"./download"
+	"./dropbox"
+	"./google"
+	"./yandex"
 )
 
 func main(){
-	println("Started Dropbox tool")
 
+	servicePtr := flag.String("service", "", "Text to parse.")
 	loginPtr := flag.String("login", "", "Text to parse.")
 	passwordPtr := flag.String("password", "", "")
 	urlPtr := flag.String("url", "", "")
 	flag.Parse()
 
-	//fmt.Printf("login: %s, password: %s, url: %s\n", *loginPtr, *passwordPtr, *urlPtr)
-	download.Download(*loginPtr, *passwordPtr, *urlPtr)
+
+	switch *servicePtr {
+		case "dropbox":
+			dropbox.Download(*loginPtr, *passwordPtr, *urlPtr)
+		case "yandex":
+			yandex.Download(*loginPtr, *passwordPtr, *urlPtr)
+		case "google":
+			google.Download(*loginPtr, *passwordPtr, *urlPtr)
+	}
 }
