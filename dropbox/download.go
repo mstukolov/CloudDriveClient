@@ -14,27 +14,31 @@ const	PREFIX = "https://www.dropbox.com/s/"
 const 	POSTFIX = "?dl=1"
 
 func Download(login string, password string, url string) (err error){
-	println("This Dropbox download utility")
-	fmt.Printf("login: %s, password: %s, url: %s\n", login, password, url)
+	fmt.Print("This Dropbox download utility\n")
+	//fmt.Printf("login: %s, password: %s, url: %s\n", login, password, url)
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Enter fileID: ")
 	fileID, _ := reader.ReadString('\n')
 	fmt.Print("Enter file name: ")
 	fileName, _ := reader.ReadString('\n')
 
-	s := []string{"https://www.dropbox.com/s/", strings.TrimSuffix(fileID, "\n"), "/", strings.TrimSuffix(fileName, "\n"), "?dl=1"}
-	//s := []string{"https://www.dropbox.com/s/", "1uohkqwl2k2d1du/anyconnect.rar", "?dl=1"}
-	//s := []string{"https://www.dropbox.com/s/", strings.TrimSuffix(fileID, "\n"), "?dl=1"}
+	s := []string{	"https://www.dropbox.com/s/",
+					strings.TrimSuffix(fileID, "\n"),
+					"/",
+					strings.TrimSuffix(fileName, "\n"),
+					"?dl=1"}
 
 	URI := strings.Join(s, "")
 
 	return Run(URI, strings.TrimSuffix(fileName, "\n"))
-	//return Run("https://www.dropbox.com/s/1uohkqwl2k2d1du/anyconnect.rar?dl=1", strings.TrimSuffix(fileName, "\n"))
-	//return nil
 }
 
 func Run(url string, fileName string) (err error){
 	fmt.Printf("RUN got a new URL request: %s\n", url)
+	// check path downloads exists
+	if _, err := os.Stat("downloads"); os.IsNotExist(err) {
+		os.MkdirAll("downloads", os.ModePerm)
+	}
 
 	var buffer bytes.Buffer
 	buffer.WriteString("downloads/")
