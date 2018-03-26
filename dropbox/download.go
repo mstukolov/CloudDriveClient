@@ -10,7 +10,6 @@ import (
 	"strings"
 )
 
-
 const	PREFIX = "https://www.dropbox.com/s/"
 const 	POSTFIX = "?dl=1"
 
@@ -18,19 +17,25 @@ func Download(login string, password string, url string) (err error){
 	println("This Dropbox download utility")
 	fmt.Printf("login: %s, password: %s, url: %s\n", login, password, url)
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Enter id: ")
-	fileID, _ := reader.ReadString('\n')
+	fmt.Print("Enter URL: ")
+	URI, _ := reader.ReadString('\n')
 	fmt.Print("Enter file name: ")
 	fileName, _ := reader.ReadString('\n')
 
-	s := []string{PREFIX, strings.TrimSuffix(fileID, "\n"), "/", strings.TrimSuffix(fileName, "\n"), POSTFIX}
-	URI := strings.Join(s, "")
-	Run(URI, strings.TrimSuffix(fileName, "\n"))
-	return nil
+	fmt.Println(URI)
+	//s := []string{"https://www.dropbox.com/s/", strings.TrimSuffix(fileID, "\n"), "/", strings.TrimSuffix(fileName, "\n"), "?dl=1"}
+	//s := []string{"https://www.dropbox.com/s/", "1uohkqwl2k2d1du/anyconnect.rar", "?dl=1"}
+	//s := []string{"https://www.dropbox.com/s/", strings.TrimSuffix(fileID, "\n"), "?dl=1"}
+	/*s := []string{"this", strings.TrimSuffix(fileID, "\n"), "is", "joined", "string\n"}
+		URI := strings.Join(s, "")*/
+
+	//Run(URI, strings.TrimSuffix(fileName, "\n"))
+	return Run("https://www.dropbox.com/s/1uohkqwl2k2d1du/anyconnect.rar?dl=1", strings.TrimSuffix(fileName, "\n"))
+	//return nil
 }
 
 func Run(url string, fileName string) (err error){
-	fmt.Printf("URL requestis: %s\n", url)
+	fmt.Printf("RUN got a new URL request: %s\n", url)
 
 	var buffer bytes.Buffer
 	buffer.WriteString("downloads/")
