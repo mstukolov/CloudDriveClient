@@ -3,7 +3,7 @@ GET Utility
 git clone https://github.com/mstukolov/CloudDriveClient.git
 
 Build Utility:
-go build cli-tools.go\n
+1. go build cli-tools.go
 RUN Utility:
 cli-tools -service=cloud provider(Example, dropbox, google, yandex)
   
