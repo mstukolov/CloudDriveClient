@@ -1,5 +1,12 @@
 # CloudDriveClient
+GET Utility
+git clone https://github.com/mstukolov/CloudDriveClient.git
 
+Build Utility
+go build cli-tools.go
+RUN Utility
+cli-tools -service=<cloud provider>
+  
 DROPBOX API:
 1. get file shared link:
 https://www.dropbox.com/s/fileID/FileName?dl=0
