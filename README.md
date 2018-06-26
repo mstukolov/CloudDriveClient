@@ -1,4 +1,7 @@
 # CloudDriveClient
+
+Utility for working with cloud storage systems Dropbox, Google Drive, Yandex Drive. Works under Linux operating system. 
+
 GET Utility
 git clone https://github.com/mstukolov/CloudDriveClient.git
 
